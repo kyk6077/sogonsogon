@@ -8,7 +8,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/header.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/script/header_scroll.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
@@ -159,6 +158,7 @@
 		min-width: 600px;
 	}
 </style>
+
 <script type="text/javascript">
 $(function(){
 	
@@ -305,7 +305,6 @@ $(function(){
 			data:{
 				bnum: ${boardDTO.bnum}
 			},success:function(data){
-				console.log(data);
 				makeCommentView(data.comments_list);
 				makeCommentPage(data.comments_pager);
 			},error:function(){
@@ -313,7 +312,7 @@ $(function(){
 			}
 		
 		});
-	}
+	};
 	
 	function getCommentList(page){
 		$.ajax({
@@ -323,7 +322,6 @@ $(function(){
 				curPage: page,
 				bnum: ${boardDTO.bnum}
 			},success:function(data){
-				console.log(data);
 				makeCommentView(data.comments_list);
 				makeCommentPage(data.comments_pager);
 			},error:function(){
@@ -331,7 +329,7 @@ $(function(){
 			}
 		
 		});
-	}
+	};
 	
 	
 	function makeCommentView(comments_list){
@@ -349,7 +347,7 @@ $(function(){
 			view += '<span class="myComment_delete" title="'+currnetValue.cnum+'">삭제</span></div></div></div>';
 			$('.comment_view').append(view);
 		});
-	}
+	};
 	
 	function makeCommentPage(pager){
 		var pageView = '<div class="comment_page">';
@@ -366,7 +364,7 @@ $(function(){
 		}
 		pageView +=	'</div>';
 		$('.comment_view').append(pageView);
-	}
+	};
 	
 });
 </script>
@@ -413,4 +411,5 @@ $(function(){
 		</div>
 	</div>
 </body>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/script/header_scroll.js"></script>
 </html>

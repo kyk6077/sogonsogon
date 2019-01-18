@@ -12,8 +12,6 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <title>Insert title here</title>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8c48f92b49340045d7e1418ebcdc558a&libraries=services,clusterer,drawing"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/script/header_scroll.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/script/kko_map.js"></script>
 <style type="text/css">
 	.main_container {
 		width:100%;
@@ -165,4 +163,6 @@
 	</div>
 	
 </body>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/script/header_scroll.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/script/kko_map.js"></script>
 </html>

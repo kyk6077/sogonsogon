@@ -13,11 +13,12 @@
 		margin-bottom: 200px;
 	}
 </style>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/script/header_scroll.js"></script>
+
 
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script type="text/javascript">
 $(function(){
+
 	Kakao.init('8c48f92b49340045d7e1418ebcdc558a');
 	$('.kko_login_btn').click(function(){
 		//로그인 창 띄우기
@@ -82,6 +83,7 @@ $(function(){
 		</div>
 	</div>
 </body>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/script/header_scroll.js"></script>
 </html>
 
 

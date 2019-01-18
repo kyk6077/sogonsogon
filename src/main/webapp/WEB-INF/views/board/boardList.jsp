@@ -8,7 +8,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/header.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/script/header_scroll.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">	
@@ -167,4 +166,5 @@ $(function(){
 		</div>
 	</div>
 </body>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/script/header_scroll.js"></script>
 </html>

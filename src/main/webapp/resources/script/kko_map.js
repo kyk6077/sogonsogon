@@ -1,4 +1,4 @@
-$(function(){
+
 	//마커 보여줄 윈도우
 	var infowindow = new daum.maps.InfoWindow({zIndex:1});
 	//지도에 표시된 마커 객체 배열
@@ -106,5 +106,3 @@ $(function(){
 		//검색된 장소 위치를 기준으로 지도 범위를 재설정
 		map.setBounds(bounds);
 	}
-	
-});
