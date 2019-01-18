@@ -3,172 +3,71 @@
 <html>
 <head>
 <title>Home</title>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/header.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style type="text/css">
-.cbp-af-header {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	background: #f6f6f6;
-	z-index: 10000;
-	height: 230px;
-	overflow: hidden;
-	-webkit-transition: height 0.3s;
-	-moz-transition: height 0.3s;
-	transition: height 0.3s;
-}
-
-.cbp-af-header .cbp-af-inner {
-	width: 90%;
-	max-width: 69em;
-	margin: 0 auto;
-	padding: 0 1.875em;
-}
-
-.cbp-af-header h1,
-.cbp-af-header nav {
-	display: inline-block;
-	position: relative;
-}
-
- /* We just have one-lined elements, so we'll center the elements with the line-height set to the height of the header */
-.cbp-af-header h1,
-.cbp-af-header nav a {
-	line-height: 230px;
-}
-
-.cbp-af-header h1 {
-	text-transform: uppercase;
-	color: #333;
-	letter-spacing: 4px;
-	font-size: 4em;
-	margin: 0;
-	float: left;
-}
-
-.cbp-af-header nav {
-	float: right;
-}
-
-.cbp-af-header nav a {
-	color: #aaa;
-	font-weight: 700;
-	margin: 0 0 0 20px;
-	font-size: 1.4em;
-}
-
-.cbp-af-header nav a:hover {
-	color: #333;
-}
-
-/* Transitions and class for reduced height */
-.cbp-af-header h1,
-.cbp-af-header nav a {
-	-webkit-transition: all 0.3s;
-	-moz-transition: all 0.3s;
-	transition: all 0.3s;
-}
-
-.cbp-af-header.cbp-af-header-shrink {
-	height: 90px;
-}
-
-.cbp-af-header.cbp-af-header-shrink h1,
-.cbp-af-header.cbp-af-header-shrink nav a {
-	line-height: 90px;
-}
-
-.cbp-af-header.cbp-af-header-shrink h1 {
-	font-size: 2em;
-}
-
-/* Example Media Queries */
-@media screen and (max-width: 55em) {
-	
-	.cbp-af-header .cbp-af-inner {
-		width: 100%;
+	.main_container {
+		width:100%;
+		margin-top: 15em;
+		margin-bottom: 200px;
 	}
-
-	.cbp-af-header h1,
-	.cbp-af-header nav {
-		display: block;
-		margin: 0 auto;
-		text-align: center;
-		float: none;
-	}
-
-	.cbp-af-header h1,
-	.cbp-af-header nav a {
-		line-height: 115px;
-	}
-
-	.cbp-af-header nav a {
-		margin: 0 10px;
-	}
-
-	.cbp-af-header.cbp-af-header-shrink h1,
-	.cbp-af-header.cbp-af-header-shrink nav a {
-		line-height: 45px;
-	}
-
-	.cbp-af-header.cbp-af-header-shrink h1 {
-		font-size: 2em;
-	}
-
-	.cbp-af-header.cbp-af-header-shrink nav a {
-		font-size: 1em;
-	}
-}
-
-@media screen and (max-width: 32.25em) {
-	.cbp-af-header nav a {
-		font-size: 1em;
-	}
-}
-
-@media screen and (max-width: 24em) {
-	.cbp-af-header nav a,
-	.cbp-af-header.cbp-af-header-shrink nav a {
-		line-height: 1;
-	}
-}
 </style>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/script/header_scroll.js"></script>
+
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script type="text/javascript">
 $(function(){
-	var cbpAnimatedHeader = (function() {
-
-		var docElem = document.documentElement,
-			header = document.querySelector( '.cbp-af-header' ),
-			didScroll = false,
-			changeHeaderOn = 300;
-
-		function init() {
-			window.addEventListener( 'scroll', function( event ) {
-				if( !didScroll ) {
-					didScroll = true;
-					setTimeout( scrollPage, 250 );
+	Kakao.init('8c48f92b49340045d7e1418ebcdc558a');
+	$('.kko_login_btn').click(function(){
+		//로그인 창 띄우기
+		Kakao.Auth.loginForm({
+			persistAccessToken:false,
+			success: function(authObj){
+				//console.log(JSON.stringify(authObj.access_token))
+				
+				$.ajax({
+					url: './visitor/login',
+					type: 'POST',
+					data: {
+						token: authObj.access_token
+					},
+					success:function(result){
+						console.log(result);
+						location.reload();
+					},
+					error:function(){
+						alert('Login Fail');
+					}
+				});
+			},
+			fail: function(err){
+				alert(JSON.stringify(err));
+			}
+			
+		});
+		
+	});
+	$('.kko_logout_btn').click(function(){
+		if('${token}==null'){
+			$.ajax({
+				url: './visitor/logout',
+				type: 'POST',
+				success:function(result){
+					location.reload();
+				},
+				error:function(){
+					alert('Login Fail');
 				}
-			}, false );
+			});
+		}else{
+			alert('세션이 만료되었습니다.');
+			location.reload();
 		}
-
-		function scrollPage() {
-			var sy = scrollY();
-			if ( sy >= changeHeaderOn ) {
-				classie.add( header, 'cbp-af-header-shrink' );
-			}
-			else {
-				classie.remove( header, 'cbp-af-header-shrink' );
-			}
-			didScroll = false;
-		}
-
-		function scrollY() {
-			return window.pageYOffset || docElem.scrollTop;
-		}
-
-		init();
-
-	})();
+		
+	});
+	
+	
 });
 
 </script>
@@ -176,16 +75,13 @@ $(function(){
 
 
 <body>
-<c:import url="./header.jsp"></c:import>
-<h1>
-	Hello world!  
-</h1>
-
-<P>  The time on the server is ${serverTime}. </P>
-
-<a href="./board/boardList">boardList</a>
-<a href="./studyroom/locationMap">locationMap</a>
-<a href="./visitor/login">login</a>
-
+	<div class="container">
+		<c:import url="./header.jsp"/>
+		<div class="main_container">
+			Index
+		</div>
+	</div>
 </body>
 </html>
+
+

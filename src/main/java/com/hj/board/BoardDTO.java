@@ -4,12 +4,19 @@ import java.sql.Date;
 
 public class BoardDTO {
 	private int bnum;
+	private String title;
 	private String writer;
 	private String contents;
 	private Date reg_date;
 	private int hit;
 	
 	
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	public int getBnum() {
 		return bnum;
 	}

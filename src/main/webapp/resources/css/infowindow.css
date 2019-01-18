@@ -1,0 +1,45 @@
+@charset "UTF-8";
+.infowindow{
+		border-radius:7px;
+		width: 280px;
+		height: 155px;
+		border: solid 2px black;
+	}
+	.infowindow_top{
+		max-width:280px;
+		height: 30px;
+		background-color: #F6F6F6;
+	}
+	.info_name{
+		line-height: 30px;
+		margin-left: 5px;
+	}
+	.info_close_btn{
+		position: absolute;
+		font-size:13px;
+		right: 10px;
+		top: 7px;
+	}
+	.infowindow_middle{
+		max-width:280px;
+		height: 80px;
+	}
+	.info_phone{
+		margin: 5px 0 0 5px;
+	}
+	.info_main_address{
+		margin-left: 5px;
+		margin-bottom: 0;
+	}
+	.info_place_url{
+		margin: 0 0 3px 5px;
+	}
+	.infowindow_bottom{
+		max-width:280px;
+		height: 23px;
+		padding: 3px;
+	}
+	.infowindow_comments_btn{
+		width: 70px;
+		height: 30px;
+	}
