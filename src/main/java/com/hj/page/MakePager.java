@@ -8,6 +8,14 @@ public class MakePager {
 	private String search;
 	private String kind;
 	
+	
+	
+	
+	public MakePager(int curPage) {
+		this.curPage = curPage;
+		this.perPage = 5;
+	}
+
 	public MakePager(int curPage, String search, String kind) {
 		this.curPage = curPage;
 		this.perPage = 5;
@@ -35,6 +43,14 @@ public class MakePager {
 		rowNumber.setSearch(this.search);
 		rowNumber.setStartRow((this.curPage-1)*this.perPage+1);
 		rowNumber.setLastRow(this.curPage*this.perPage);
+		return rowNumber;
+	}
+	
+	public RowNumber MakeRow(int bnum) {
+		rowNumber = new RowNumber();
+		rowNumber.setStartRow((this.curPage-1)*this.perPage+1);
+		rowNumber.setLastRow(this.curPage*this.perPage);
+		rowNumber.setBnum(bnum);
 		return rowNumber;
 	}
 	
@@ -68,9 +84,12 @@ public class MakePager {
 		}
 		
 		
-		
-		pager.setKind(this.kind);
-		pager.setSearch(this.search);
+		try {
+			pager.setKind(this.kind);
+			pager.setSearch(this.search);
+		} catch (Exception e) {
+			System.out.println("검색 없음");
+		}
 		pager.setStartNum(startNum);
 		pager.setLastNum(lastNum);
 		pager.setTotalBlock(totalBlock);

@@ -7,8 +7,15 @@
   		select count(cnum) from comments where bnum = #{bnum}
   	</select>
   	
-  	<select id="commentsList" parameterType="java.lang.Integer" resultType="CommentsDTO">
-  		select * from comments where bnum = #{bnum}
+  	<select id="commentsList" parameterType="com.hj.page.RowNumber" resultType="CommentsDTO">
+  		select * from( 
+  		select rownum R, C.* from( 
+  		select * from comments where bnum = #{bnum} order by cnum desc) C )  
+  		where R BETWEEN #{startRow} AND #{lastRow}
+  	</select>
+  	
+  	<select id="getNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  		select count(cnum) from comments where bnum = #{bnum}
   	</select>
   	
   	<insert id="commentsInsert" parameterType="CommentsDTO">

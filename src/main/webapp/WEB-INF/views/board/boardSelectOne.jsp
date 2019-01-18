@@ -18,6 +18,7 @@
 		margin-bottom: 200px;
 		background: #f6f6f6;
 		padding: 15px;
+		min-width: 600px;
 	}
 	.board_info_row{
 		min-width: 600px;
@@ -142,7 +143,21 @@
 		padding:5px;
 		border-bottom: 1px solid white;
 	}
-
+	.comment_page{
+		margin-top: 20px;
+		text-align: center;
+	}
+	.pagebtn{
+		padding:10px;
+		font-weight: 700;
+		cursor: pointer;
+	}
+	.comment_view{
+		min-width: 600px;
+	}
+	.comment_list{
+		min-width: 600px;
+	}
 </style>
 <script type="text/javascript">
 $(function(){
@@ -244,10 +259,7 @@ $(function(){
 				}
 			})
 			
-			
-			
 		}
-		
 		
 	});
 	
@@ -273,6 +285,18 @@ $(function(){
 		
 	});
 
+	$('.comment_view').on('click','.pagebtn',function(){
+		var page = $(this).attr("title");
+		
+		if(page.slice(0,1)=='s'){
+			page = page.slice(1)*1-1;
+		}else if(page.slice(0,1)=='l'){
+			page = page.slice(1)*1+1;
+		}else{
+			page = page*1;
+		}
+		getCommentList(page);
+	});
 	
 	function getCommentList(){
 		$.ajax({
@@ -281,26 +305,67 @@ $(function(){
 			data:{
 				bnum: ${boardDTO.bnum}
 			},success:function(data){
-				$('.comment_view').html("");
-				data.forEach(function(currnetValue, index, array){
-				
-					var date = new Date(currnetValue.reg_date).toISOString().slice(0,10);
-					var view = '<div class="comment_list"><div class="comment_view_header">'; 	
-					view += '<span class="comment_view_writer">'+currnetValue.writer+'</span>';
-					view += '</div><div class="comment_view_body">';
-					view += '<span class="comment_view_contents" id="c'+currnetValue.cnum+'">'+currnetValue.contents+'</span>';
-					view += '<textarea class="comment_input_update" id="t'+currnetValue.cnum+'" rows="3" cols="30">'+currnetValue.contents+'</textarea>'
-					view += '</div><div class="comment_view_footer">';
-					view += '<span class="comment_view_reg_date">'+date+'</span>';
-					view += '<div class="comment_button_row"><span class="myComment_update" title="'+currnetValue.cnum+'">수정</span>';
-					view += '<span class="myComment_delete" title="'+currnetValue.cnum+'">삭제</span></div></div></div>';
-					$('.comment_view').append(view);
-				});
+				console.log(data);
+				makeCommentView(data.comments_list);
+				makeCommentPage(data.comments_pager);
 			},error:function(){
 				alert('리스트 실패');
 			}
 		
 		});
+	}
+	
+	function getCommentList(page){
+		$.ajax({
+			url:"../comments/commentsList",
+			type:"GET",
+			data:{
+				curPage: page,
+				bnum: ${boardDTO.bnum}
+			},success:function(data){
+				console.log(data);
+				makeCommentView(data.comments_list);
+				makeCommentPage(data.comments_pager);
+			},error:function(){
+				alert('리스트 실패');
+			}
+		
+		});
+	}
+	
+	
+	function makeCommentView(comments_list){
+		$('.comment_view').html("");
+		comments_list.forEach(function(currnetValue, index, array){
+			var date = new Date(currnetValue.reg_date).toISOString().slice(0,10);
+			var view = '<div class="comment_list"><div class="comment_view_header">'; 	
+			view += '<span class="comment_view_writer">'+currnetValue.writer+'</span>';
+			view += '</div><div class="comment_view_body">';
+			view += '<span class="comment_view_contents" id="c'+currnetValue.cnum+'">'+currnetValue.contents+'</span>';
+			view += '<textarea class="comment_input_update" id="t'+currnetValue.cnum+'" rows="3" cols="30">'+currnetValue.contents+'</textarea>'
+			view += '</div><div class="comment_view_footer">';
+			view += '<span class="comment_view_reg_date">'+date+'</span>';
+			view += '<div class="comment_button_row"><span class="myComment_update" title="'+currnetValue.cnum+'">수정</span>';
+			view += '<span class="myComment_delete" title="'+currnetValue.cnum+'">삭제</span></div></div></div>';
+			$('.comment_view').append(view);
+		});
+	}
+	
+	function makeCommentPage(pager){
+		var pageView = '<div class="comment_page">';
+		var startNum = pager.startNum;
+		var lastNum = pager.lastNum;
+		if(startNum>1){
+			pageView += '<span class="glyphicon glyphicon-chevron-left pagebtn" title="s'+startNum+'"></span>'
+		}
+		for(var i=startNum;i<=lastNum;i++){
+			pageView += '<span class="pagebtn" title="'+i+'">'+i+'</span>';
+		}
+		if(pager.curBlock < pager.totalBlock){
+			pageView += '<span class="glyphicon glyphicon-chevron-right pagebtn" title="l'+lastNum+'"></span>'
+		}
+		pageView +=	'</div>';
+		$('.comment_view').append(pageView);
 	}
 	
 });
@@ -310,7 +375,7 @@ $(function(){
 	<div class="container">
 		<c:import url="../header.jsp"/>
 		<div class="main_container">
-			<h1 class="board_info_title">자유게시판</h1>
+			<h1 class="board_info_title">자유게시판.</h1>
 			<div class="board_info_row">
 				<div class="info_header">
 					<p class="board_title">${boardDTO.title}</p>
@@ -344,10 +409,7 @@ $(function(){
 				</div>
 			</div>
 			
-			<div class="comment_view">
-				
-			</div>
-			
+			<div class="comment_view"></div>
 		</div>
 	</div>
 </body>

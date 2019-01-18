@@ -1,11 +1,13 @@
 package com.hj.sogonsogon;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hj.comments.CommentsDTO;
@@ -26,8 +28,8 @@ public class CommentsController {
 	
 	@ResponseBody
 	@RequestMapping(value="/commentsList",method=RequestMethod.GET)
-	public List<CommentsDTO> commentsList(int bnum) throws Exception{
-		return commentsService.commentsList(bnum);
+	public Map<Object, Object> commentsList(@RequestParam(value="curPage",defaultValue="1")int curPage,int bnum) throws Exception{
+		return commentsService.commentsList(bnum,curPage);
 	}
 	
 	@ResponseBody

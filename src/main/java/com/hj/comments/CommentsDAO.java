@@ -7,6 +7,8 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.hj.page.RowNumber;
+
 @Repository
 public class CommentsDAO {
 	
@@ -22,8 +24,12 @@ public class CommentsDAO {
 		return sqlSession.insert(NAMESPACE+"commentsInsert", commentsDTO);
 	}
 	
-	public List<CommentsDTO> commentsList(int bnum)throws Exception{
-		return sqlSession.selectList(NAMESPACE+"commentsList",bnum);
+	public List<CommentsDTO> commentsList(RowNumber rowNumber)throws Exception{
+		return sqlSession.selectList(NAMESPACE+"commentsList",rowNumber);
+	}
+	
+	public int getNum(int bnum) throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getNum",bnum);
 	}
 
 	public int commentsUpdate(CommentsDTO commentsDTO)throws Exception{
