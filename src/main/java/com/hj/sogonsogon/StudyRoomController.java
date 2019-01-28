@@ -42,8 +42,6 @@ public class StudyRoomController {
 	@ResponseBody
 	@RequestMapping(value="reviewInsert",method=RequestMethod.POST)
 	public int reviewInsert(ReviewDTO reviewDTO) throws Exception{
-		System.out.println(reviewDTO.getContents());
-		System.out.println(reviewDTO.getWriter());
 		return reviewService.reviewInsert(reviewDTO);
 	}
 	

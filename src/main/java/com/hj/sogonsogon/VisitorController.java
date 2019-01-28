@@ -26,7 +26,6 @@ public class VisitorController {
 	public void logout(HttpServletRequest request) throws Exception{
 		HttpSession session = (HttpSession)request.getSession();
 		String token = (String)session.getAttribute("token");
-		System.out.println(token);
 		if(token != null) {
 			session.removeAttribute("token");
 			session.removeAttribute("visitor");

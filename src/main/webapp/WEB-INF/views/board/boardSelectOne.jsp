@@ -404,7 +404,7 @@ $(function(){
 			
 			<c:if test="${boardDTO.writer!=null&&token!=null}">
 				<div class="comment_row">
-					<input type="text" id="comment_writer" name="writer" placeholder="writer">
+					<input type="text" readonly="readonly" id="comment_writer" name="writer" value="${visitor.nickname}">
 					<div class="comment_header">
 						<textarea placeholder="comment" rows="3" cols="30" id="comment_contents" name="comment_contents"></textarea>
 					</div>

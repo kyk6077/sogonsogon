@@ -42,11 +42,6 @@ public class BoardController {
 		return boardService.boardInsert(boardDTO);
 	}
 	
-	/*@RequestMapping(value="boardSelectOne",method=RequestMethod.GET)
-	public ModelAndView boardInsert2(int bnum) throws Exception{
-		return boardService.boardSelectOne(bnum);
-	}*/
-	
 	@RequestMapping(value="boardSelectOne",method=RequestMethod.GET)
 	public Map<Object, Object> boardInsert2(int bnum) throws Exception{
 		return boardService.boardSelectOne(bnum);
