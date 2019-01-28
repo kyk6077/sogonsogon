@@ -7,7 +7,7 @@ public class MakePager {
 	private RowNumber rowNumber;
 	private String search;
 	private String kind;
-	
+	private ReviewRowNumber reviewRowNumber;
 	
 	
 	
@@ -15,7 +15,12 @@ public class MakePager {
 		this.curPage = curPage;
 		this.perPage = 5;
 	}
-
+	
+	public MakePager(int curPage,int perPage) {
+		this.curPage = curPage;
+		this.perPage = perPage;
+	}
+	
 	public MakePager(int curPage, String search, String kind) {
 		this.curPage = curPage;
 		this.perPage = 5;
@@ -52,6 +57,14 @@ public class MakePager {
 		rowNumber.setLastRow(this.curPage*this.perPage);
 		rowNumber.setBnum(bnum);
 		return rowNumber;
+	}
+	
+	public ReviewRowNumber makeReviewRow(String target_num) {
+		reviewRowNumber = new ReviewRowNumber();
+		reviewRowNumber.setTarget_num(target_num);
+		reviewRowNumber.setStartRow((this.curPage-1)*this.perPage+1);
+		reviewRowNumber.setLastRow(this.curPage*this.perPage);
+		return reviewRowNumber;
 	}
 	
 	//화면에서 페이지처리용

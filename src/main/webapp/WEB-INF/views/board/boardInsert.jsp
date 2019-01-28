@@ -64,7 +64,7 @@
 					</label></p>
 				<p><label class="board_label">
 					Writer<br>
-					<input type="text" class="board_input" name="writer">
+					<input type="text" class="board_input" name="writer" readonly="readonly" value="${visitor.nickname}">
 				</label></p>
 	
 				<p class="contents_title">Contents</p>

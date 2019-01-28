@@ -10,6 +10,28 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+	$(function(){
+		$.ajax({
+			url:'https://openapi.gg.go.kr/Poplitloanbook?',
+			type:'GET',
+			data:{
+				KEY: '20acc3078cce4a10805b81e1f0b131af',
+				Type: 'json',
+				pIndex: 1,
+				pSize: 30
+			},
+			success:function(data){
+				console.log(data);
+				/* 백엔드로 보내서 리스트로 처리해서 가져와야됨 */
+			},
+			error:function(){
+				alert('fail');
+			}
+		
+		});
+	});
+</script>
 <style type="text/css">
 	.main_container {
 		width:100%;

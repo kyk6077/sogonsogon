@@ -119,7 +119,9 @@ $(function(){
 						</c:forEach>
 					</tbody>
 				</table>
-				<input type="button" id="board_write" value="Write"/>
+				<c:if test="${token!=null}">
+					<input type="button" id="board_write" value="Write"/>
+				</c:if>
 			</div>
 			
 			<div class="row_pager">

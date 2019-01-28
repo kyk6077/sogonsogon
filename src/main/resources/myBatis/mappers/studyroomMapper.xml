@@ -2,6 +2,25 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-  <mapper namespace="StudyroomMapper">
-  
+  <mapper namespace="StudyRoomMapper">
+  		<insert id="reviewInsert" parameterType="ReviewDTO">
+  			insert into review (rnum,target_num,writer,contents,reg_date) values (review_seq.nextval,#{target_num},#{writer},#{contents},sysdate)
+  		</insert>
+  		
+  		<select id="reviewList" parameterType="com.hj.page.ReviewRowNumber" resultType="ReviewDTO">
+  			select * from(
+			select Rownum R , RV.* from(
+			select * from review where target_num=#{target_num}
+			order by rnum desc) RV )
+			where R Between #{startRow} and #{lastRow}
+  		</select>
+  		
+  		<delete id="reviewDelete" parameterType="java.lang.Integer">
+  			delete review where rnum=#{rnum}
+  		</delete>
+  		
+  		<select id="reviewTotalCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+  			select count(rnum) from review where target_num = #{target_num}
+  		</select>
+  	
   </mapper>

@@ -9,7 +9,7 @@ public class HotBookController {
 
 	@RequestMapping(value="hotBookList")
 	public void locationMap() throws Exception{
-		
+		System.out.println("hotbookList");
 	}
 	
 }

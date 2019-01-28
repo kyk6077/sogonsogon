@@ -6,5 +6,6 @@
 	<typeAliases>
 		<typeAlias type="com.hj.board.BoardDTO" alias="BoardDTO"/>
 		<typeAlias type="com.hj.comments.CommentsDTO" alias="CommentsDTO"/>
+		<typeAlias type="com.hj.review.ReviewDTO" alias="ReviewDTO"/>
 	</typeAliases>
 </configuration>

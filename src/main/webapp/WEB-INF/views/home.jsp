@@ -13,65 +13,6 @@
 		margin-bottom: 200px;
 	}
 </style>
-
-
-<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-<script type="text/javascript">
-$(function(){
-
-	Kakao.init('8c48f92b49340045d7e1418ebcdc558a');
-	$('.kko_login_btn').click(function(){
-		//로그인 창 띄우기
-		Kakao.Auth.loginForm({
-			persistAccessToken:false,
-			success: function(authObj){
-				//console.log(JSON.stringify(authObj.access_token))
-				
-				$.ajax({
-					url: './visitor/login',
-					type: 'POST',
-					data: {
-						token: authObj.access_token
-					},
-					success:function(result){
-						console.log(result);
-						location.reload();
-					},
-					error:function(){
-						alert('Login Fail');
-					}
-				});
-			},
-			fail: function(err){
-				alert(JSON.stringify(err));
-			}
-			
-		});
-		
-	});
-	$('.kko_logout_btn').click(function(){
-		if('${token}==null'){
-			$.ajax({
-				url: './visitor/logout',
-				type: 'POST',
-				success:function(result){
-					location.reload();
-				},
-				error:function(){
-					alert('Login Fail');
-				}
-			});
-		}else{
-			alert('세션이 만료되었습니다.');
-			location.reload();
-		}
-		
-	});
-	
-	
-});
-
-</script>
 </head>
 
 
@@ -79,7 +20,7 @@ $(function(){
 	<div class="container">
 		<c:import url="./header.jsp"/>
 		<div class="main_container">
-			Index
+			Index.
 		</div>
 	</div>
 </body>

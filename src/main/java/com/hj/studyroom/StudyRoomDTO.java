@@ -1,4 +1,4 @@
-package com.hj.studyroom;
+package com.hj.studyRoom;
 
 public class StudyRoomDTO {
 	private int snum;

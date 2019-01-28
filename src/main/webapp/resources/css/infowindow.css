@@ -1,8 +1,7 @@
 @charset "UTF-8";
-.infowindow{
-		border-radius:7px;
+	.infowindow{
 		width: 280px;
-		height: 155px;
+		height: 135px;
 		border: solid 2px black;
 	}
 	.infowindow_top{
@@ -22,7 +21,7 @@
 	}
 	.infowindow_middle{
 		max-width:280px;
-		height: 80px;
+		height: 60px;
 	}
 	.info_phone{
 		margin: 5px 0 0 5px;
@@ -40,6 +39,23 @@
 		padding: 3px;
 	}
 	.infowindow_comments_btn{
-		width: 70px;
+		width: 100%;
 		height: 30px;
+		background-color: #cdcdcd;
 	}
+	
+	.hoverinfowindow{
+		width: 150px;
+		height: 20px;
+		overflow: hidden;
+		text-overflow:ellipsis;
+    	white-space: nowrap;
+    	line-height: 10px;	
+    	text-align: center;
+	}
+	
+	
+	
+	
+	
+	

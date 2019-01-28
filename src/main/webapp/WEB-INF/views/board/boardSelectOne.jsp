@@ -219,6 +219,7 @@ $(function(){
 					getCommentList();
 					$('#comment_contents').val("");
 					$('#comment_writer').val("");
+					$('.comment_view').show();
 				}else{
 					alert('댓글 등록 실패');
 				}
@@ -334,17 +335,21 @@ $(function(){
 	
 	function makeCommentView(comments_list){
 		$('.comment_view').html("");
-		comments_list.forEach(function(currnetValue, index, array){
-			var date = new Date(currnetValue.reg_date).toISOString().slice(0,10);
+		comments_list.forEach(function(curVal, index, array){
+			var date = new Date(curVal.reg_date).toISOString().slice(0,10);
 			var view = '<div class="comment_list"><div class="comment_view_header">'; 	
-			view += '<span class="comment_view_writer">'+currnetValue.writer+'</span>';
+			view += '<span class="comment_view_writer">'+curVal.writer+'</span>';
 			view += '</div><div class="comment_view_body">';
-			view += '<span class="comment_view_contents" id="c'+currnetValue.cnum+'">'+currnetValue.contents+'</span>';
-			view += '<textarea class="comment_input_update" id="t'+currnetValue.cnum+'" rows="3" cols="30">'+currnetValue.contents+'</textarea>'
+			view += '<span class="comment_view_contents" id="c'+curVal.cnum+'">'+curVal.contents+'</span>';
+			view += '<textarea class="comment_input_update" id="t'+curVal.cnum+'" rows="3" cols="30">'+curVal.contents+'</textarea>'
 			view += '</div><div class="comment_view_footer">';
 			view += '<span class="comment_view_reg_date">'+date+'</span>';
-			view += '<div class="comment_button_row"><span class="myComment_update" title="'+currnetValue.cnum+'">수정</span>';
-			view += '<span class="myComment_delete" title="'+currnetValue.cnum+'">삭제</span></div></div></div>';
+			
+			if('${visitor.nickname}'==curVal.writer){
+				view += '<div class="comment_button_row"><span class="myComment_update" title="'+curVal.cnum+'">수정</span>';
+				view += '<span class="myComment_delete" title="'+curVal.cnum+'">삭제</span></div></div></div>';
+			};
+			
 			$('.comment_view').append(view);
 		});
 	};
@@ -388,25 +393,27 @@ $(function(){
 					조회수 ${boardDTO.hit}
 					<div class="info_button_row">
 						<button class="boardList_btn">목록</button>
-						<button class="boardUpdate_btn">수정</button>
-						<button class="boardDelete_btn">삭제</button>
+						<c:if test="${visitor.nickname==boardDTO.writer}">
+							<button class="boardUpdate_btn">수정</button>
+							<button class="boardDelete_btn">삭제</button>
+						</c:if>
 					</div>
 				</div>
 				
 			</div>
 			
-			
-			<div class="comment_row">
-				<!-- <p class="comment_writer">writer1</p> -->
-				<input type="text" id="comment_writer" name="writer" placeholder="writer">
-				<div class="comment_header">
-					<textarea placeholder="comment" rows="3" cols="30" id="comment_contents" name="comment_contents"></textarea>
+			<c:if test="${boardDTO.writer!=null&&token!=null}">
+				<div class="comment_row">
+					<input type="text" id="comment_writer" name="writer" placeholder="writer">
+					<div class="comment_header">
+						<textarea placeholder="comment" rows="3" cols="30" id="comment_contents" name="comment_contents"></textarea>
+					</div>
+					
+					<div class="comment_bottom">
+						<button class="comment_insert">등록</button>
+					</div>
 				</div>
-				<div class="comment_bottom">
-					<button class="comment_insert">등록</button>
-				</div>
-			</div>
-			
+			</c:if>
 			<div class="comment_view"></div>
 		</div>
 	</div>
